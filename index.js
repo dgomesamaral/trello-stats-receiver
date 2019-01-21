@@ -17,7 +17,7 @@ app.get('/', urlencodedParser, (req, res) => {
 })
 
 app.post('/', urlencodedParser, (req, res) => {
-  LoggingUtil('logs_GET.txt', req.body.action.data.card.name)
+  LoggingUtil('logs_GET.txt', req.body)
 })
 
 
