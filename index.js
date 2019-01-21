@@ -14,12 +14,12 @@ const port = 3000
 
   
 app.get('/', urlencodedParser, (req, res) => {
-  console.log(req.body)
+  console.log(req)
   res.send('GET')
 })
 
 app.post('/', urlencodedParser, (req, res) => {
-  console.log(req.body)
+  console.log(req)
   res.send('POST')
 })
 
