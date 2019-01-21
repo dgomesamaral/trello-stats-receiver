@@ -7,4 +7,4 @@ app.get('/', (req, res) => {
   res.send("Received your message")
 })
 
-app.listen(port, () => console.log(`App listening on port ${port}`))
+app.listen(process.env.PORT || 5000, () => console.log(`App listening on port ${port}`))
