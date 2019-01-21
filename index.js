@@ -10,10 +10,8 @@ const port = 3000
 app.use( bodyParser.json() );
 
 app.use("/", (req, res, next) => {
-  console.log(req.body.action.type);
-  if(req.body.action.type === 'moveCardFromBoard' || req.body.action.type === 'moveCardToBoard' ) {
-    console.log('Card moved');
-  }
+  console.log(req.body.action);
+  
   res.sendStatus(200);
 });
 
