@@ -4,15 +4,11 @@ var fs = require('fs')
 
 const app = express()
 
-// create application/json parser
-var jsonParser = bodyParser.json()
-
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
 const port = 3000
 
-  
+// Allows us to easily read the payload from the webhook
+app.use( bodyParser.json() );
+
 app.use("/", (req, res, next) => {
   if(req.body.action.type === 'moveCardFromBoard' || req.body.action.type === 'moveCardToBoard' ) {
     console.log('Card moved');
