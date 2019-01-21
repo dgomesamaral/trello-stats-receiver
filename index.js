@@ -14,7 +14,9 @@ const port = 3000
 
   
 app.use("/", (req, res, next) => {
-  console.log(JSON.stringify(req, null, 2));
+  if(req.body.action.type === 'moveCardFromBoard' || req.body.action.type === 'moveCardToBoard' ) {
+    console.log('Card moved');
+  }
   res.sendStatus(200);
 });
 
