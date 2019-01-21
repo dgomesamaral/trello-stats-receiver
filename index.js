@@ -14,7 +14,7 @@ const port = 3000
 
   
 app.use("/", (req, res, next) => {
-  console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req, null, 2));
   res.sendStatus(200);
 });
 
