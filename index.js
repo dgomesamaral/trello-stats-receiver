@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+var fs = require('fs')
 
 const app = express()
 
@@ -11,7 +12,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const port = 3000
 
-
+  
 app.get('/', urlencodedParser, (req, res) => {
   LoggingUtil('logs_POST.txt', req.body)
 })
