@@ -13,16 +13,10 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const port = 3000
 
   
-app.get('/', urlencodedParser, (req, res) => {
-  console.log(req)
-  res.send('GET')
-})
-
-app.post('/', urlencodedParser, (req, res) => {
-  console.log(req)
-  res.send('POST')
-})
-
+app.use("/", (req, res, next) => {
+  console.log(JSON.stringify(req.body, null, 2));
+  res.sendStatus(200);
+});
 
 app.listen(process.env.PORT || 5000, () => console.log(`App listening on port ${port}`))
 
