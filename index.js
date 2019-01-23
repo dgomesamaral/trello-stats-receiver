@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 app.all("/analyzing", (req, res, next) => {
   try {
     var action = req.body.action;
+    console.log(action)
 
     if (action.type === 'updateCard') {
       if (action.data.listAfter.name === 'Analyzing / Writing functional specification') {
