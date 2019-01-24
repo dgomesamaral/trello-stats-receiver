@@ -260,15 +260,16 @@ function calculateDiffInTime(file, activityEntry) {
           var contentToRegister = {
             id: activityEntry.id,
             nameCard: activityEntry.name,
-            personName: activityEntry.personName,
             personId: activityEntry.personId,
-            time: diffInTime
+            personName: activityEntry.personName,
+            time: diffInTime,
+            startDate: date2,
+            finishDate: date1
           }
-          registerTime('totalTime.csv', contentToRegister);
+          registerOnFile('totalTime.csv', contentToRegister);
+          removeFromFile('activeList.csv', contentToRegister.id);
         }
       }
-
-
     })
   } catch (error) {
     console.log(error);
