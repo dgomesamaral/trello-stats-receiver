@@ -31,7 +31,7 @@ app.all("/analyzing", (req, res, next) => {
     var action = req.body.action;
     console.log(action)
 
-    if (action.type === 'updateCard') {
+    if (action.display.translationKey === 'action_move_card_from_list_to_list') {
       if (action.data.listAfter.name === 'Analyzing / Writing functional specification') {
         var activityEntry = {
           id: action.data.card.id,
@@ -67,7 +67,7 @@ app.all("/developing", (req, res, next) => {
   try {
     var action = req.body.action;
 
-    if (action.type === 'updateCard') {
+    if (action.display.translationKey === 'action_move_card_from_list_to_list') {
       if (action.data.listAfter.name === 'Developing / Configuring [DEV]') {
         var activityEntry = {
           id: action.data.card.id,
@@ -102,7 +102,7 @@ app.all("/testing-qua", (req, res, next) => {
   try {
     var action = req.body.action;
 
-    if (action.type === 'updateCard') {
+    if (action.display.translationKey === 'action_move_card_from_list_to_list') {
       if (action.data.listAfter.name === 'Testing in QUA') {
         var activityEntry = {
           id: action.data.card.id,
@@ -137,7 +137,7 @@ app.all("/testing-acc", (req, res, next) => {
   try {
     var action = req.body.action;
 
-    if (action.type === 'updateCard') {
+    if (action.display.translationKey === 'action_move_card_from_list_to_list') {
       if (action.data.listAfter.name === 'Testing in ACC') {
         var activityEntry = {
           id: action.data.card.id,
