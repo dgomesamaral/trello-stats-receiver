@@ -6,7 +6,7 @@ const app = express()
 
 const port = 3000
 
-var createIfNotExists = (filename) => {
+/*var createIfNotExists = (filename) => {
   fs.open(filename, 'r', (err, fd) => {
     if (err) {
       fs.writeFile(filename, '', (err) => {
@@ -21,7 +21,7 @@ var createIfNotExists = (filename) => {
 }
 
 createIfNotExists('activeList.csv');
-createIfNotExists('totalTime.csv');
+createIfNotExists('totalTime.csv');*/
 
 // Allows us to easily read the payload from the webhook
 app.use(bodyParser.json());
@@ -201,42 +201,6 @@ function removeFromFile(file, id) {
   fs.writeFileSync(file, linesRead);
 }
 
-function registerTime(file, content) {
-
-  var linesRead = [];
-
-  fs.readFileSync(file).toString().split('\n').forEach(function (lineRead, index) {
-    if (lineRead != "") {
-      linesRead.push(lineRead);
-    }
-  })
-  if (linesRead.length == 0) {
-    console.log("There are no entries in time registry.\n")
-    registerOnFile(file, content);
-  } else {
-    fs.writeFile(file, '');
-    linesRead.forEach((each, index) => {
-      var readContent = each.split(';');
-      var id = readContent[0].replace(/(\r\n|\n|\r)/gm, "");
-      var personId = readContent[3].replace(/(\r\n|\n|\r)/gm, "");
-
-      if (id === content.id && personId === content.personId) {
-        var totalTime = parseFloat(content.time) + parseFloat(readContent[4]);
-        readContent[4] = totalTime;
-      }
-      var contentToRegister = {
-        id: readContent[0],
-        nameCard: readContent[1],
-        personName: readContent[2],
-        personId: readContent[3],
-        time: readContent[4]
-      }
-      registerOnFile(file, contentToRegister);
-    })
-  }
-  removeFromFile('activeList.csv', content.id);
-}
-
 function calculateDiffInTime(file, activityEntry) {
   try {
     fs.readFileSync(file).toString().split('\n').forEach(function (lineRead, index) {
@@ -275,5 +239,42 @@ function calculateDiffInTime(file, activityEntry) {
     console.log(error);
   }
 }
+
+function registerTime(file, content) {
+
+  var linesRead = [];
+
+  fs.readFileSync(file).toString().split('\n').forEach(function (lineRead, index) {
+    if (lineRead != "") {
+      linesRead.push(lineRead);
+    }
+  })
+  if (linesRead.length == 0) {
+    console.log("There are no entries in time registry.\n")
+    registerOnFile(file, content);
+  } else {
+    fs.writeFile(file, '');
+    linesRead.forEach((each, index) => {
+      var readContent = each.split(';');
+      var id = readContent[0].replace(/(\r\n|\n|\r)/gm, "");
+      var personId = readContent[3].replace(/(\r\n|\n|\r)/gm, "");
+
+      if (id === content.id && personId === content.personId) {
+        var totalTime = parseFloat(content.time) + parseFloat(readContent[4]);
+        readContent[4] = totalTime;
+      }
+      var contentToRegister = {
+        id: readContent[0],
+        nameCard: readContent[1],
+        personName: readContent[2],
+        personId: readContent[3],
+        time: readContent[4]
+      }
+      registerOnFile(file, contentToRegister);
+    })
+  }
+  removeFromFile('activeList.csv', content.id);
+}
+
 
 app.listen(process.env.PORT || 5000, () => console.log(`App listening on port ${port}`))
